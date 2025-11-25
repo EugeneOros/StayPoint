@@ -11,7 +11,7 @@ import 'package:hotel_booking_app/presentation/widgets/error_widget.dart'
     as custom;
 import 'package:hotel_booking_app/theme/colors.dart';
 import 'package:hotel_booking_app/theme/text_theme.dart';
-import 'package:hotel_booking_app/utils/use_once.dart';
+import 'package:hotel_booking_app/shared/utils/use_once.dart';
 import 'cubit/favorites_cubit.dart';
 import 'cubit/favorites_state.dart';
 

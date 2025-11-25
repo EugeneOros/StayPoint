@@ -37,4 +37,3 @@ final class LocaleSaveFailedException extends LocaleException {
 final class LocaleLoadFailedException extends LocaleException {
   const LocaleLoadFailedException();
 }
-

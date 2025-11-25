@@ -9,7 +9,7 @@ import 'package:hotel_booking_app/presentation/widgets/hotel_card/star_rating.da
 import 'package:hotel_booking_app/theme/colors.dart';
 import 'package:hotel_booking_app/theme/dimens.dart';
 import 'package:hotel_booking_app/theme/text_theme.dart';
-import 'package:hotel_booking_app/utils/currency_helpers.dart';
+import 'package:hotel_booking_app/shared/utils/currency_helpers.dart';
 
 const double _imageHeight = 200;
 
