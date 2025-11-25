@@ -1,4 +1,4 @@
-package com.example.checklist_app
+package com.staypoint.app
 
 import android.content.Intent
 import android.net.Uri
@@ -37,3 +37,4 @@ class MainActivity : FlutterActivity() {
         }
     }
 }
+

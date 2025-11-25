@@ -7,7 +7,7 @@ PLATFORM=${1:-android}
 TAB=${2:-hotels}
 
 # Update this with your actual package name from android/app/build.gradle.kts
-PACKAGE_NAME="com.example.checklist_app"
+PACKAGE_NAME="com.staypoint.app"
 DEEPLINK_BASE="hotelbooking://"
 
 if [ "$TAB" = "hotels" ]; then

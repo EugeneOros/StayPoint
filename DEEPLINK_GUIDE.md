@@ -21,13 +21,13 @@ The app supports the following deep links:
 
 ```bash
 # Navigate to hotels tab
-adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://hotels" com.example.checklist_app
+adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://hotels" com.staypoint.app
 
 # Navigate to favorites tab
-adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://favorites" com.example.checklist_app
+adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://favorites" com.staypoint.app
 ```
 
-**Note:** Replace `com.example.checklist_app` with your actual package name if different.
+**Note:** Replace `com.staypoint.app` with your actual package name if different.
 
 #### Using Android Studio
 

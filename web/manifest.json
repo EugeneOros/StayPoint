@@ -1,6 +1,6 @@
 {
-    "name": "checklist_app",
-    "short_name": "checklist_app",
+    "name": "StayPoint",
+    "short_name": "StayPoint",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

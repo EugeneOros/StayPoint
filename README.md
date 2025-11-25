@@ -243,7 +243,7 @@ test/
 1. **Clone the repository**:
    ```bash
    git clone <repository-url>
-   cd checklist_app
+   cd staypoint
    ```
 
 2. **Install Flutter dependencies**:
@@ -391,7 +391,7 @@ The app supports deep linking to navigate directly to specific tabs:
 
 **Android**:
 ```bash
-adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://hotels" com.example.checklist_app
+adb shell am start -W -a android.intent.action.VIEW -d "hotelbooking://hotels" com.staypoint.app
 ```
 
 **iOS** (Simulator):
