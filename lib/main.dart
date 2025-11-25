@@ -15,6 +15,8 @@ import 'package:hotel_booking_app/theme/theme.dart';
 import 'package:hotel_booking_app/presentation/pages/account/cubit/locale_cubit.dart';
 import 'package:hotel_booking_app/presentation/router/app_router.dart';
 
+import 'shared/utils/logger.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -51,7 +53,6 @@ class _MyAppState extends State<MyApp> {
   }
 
   Future<void> _initDeepLinks() async {
-    try {
       final initialLink = await _appLinks.getInitialLink();
       if (initialLink != null) {
         _handleDeepLink(initialLink);
@@ -60,13 +61,9 @@ class _MyAppState extends State<MyApp> {
       _linkSubscription = _appLinks.uriLinkStream.listen(
         _handleDeepLink,
         onError: (error) {
-          // Handle deep link errors silently
+          AppLogger.e('Error handling deep link: $error');
         },
       );
-    } catch (e) {
-      // app_links plugin not available - will work after rebuild
-      // This is expected on first run after adding the package
-    }
   }
 
   void _handleDeepLink(Uri uri) {

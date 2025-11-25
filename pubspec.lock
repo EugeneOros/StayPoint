@@ -90,7 +90,7 @@ packages:
     source: hosted
     version: "9.3.0+1"
   auto_route_generator:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: auto_route_generator
       sha256: c9086eb07271e51b44071ad5cff34e889f3156710b964a308c2ab590769e79e6

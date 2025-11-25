@@ -24,7 +24,6 @@ dependencies:
 
   # Navigation
   auto_route: ^9.1.0
-  auto_route_generator: ^9.0.0
 
   # Local Storage
   hive: ^2.2.3
