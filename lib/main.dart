@@ -11,7 +11,7 @@ import 'package:hotel_booking_app/domain/main_stream/service/main_stream_service
 import 'package:hotel_booking_app/l10n/app_localizations.dart';
 import 'package:hotel_booking_app/theme/theme.dart';
 import 'package:hotel_booking_app/presentation/pages/account/cubit/locale_cubit.dart';
-import 'package:hotel_booking_app/presentation/pages/home/home_page.dart';
+import 'package:hotel_booking_app/presentation/router/app_router.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  int? _initialTabIndex;
+  final _appRouter = AppRouter();
   static const MethodChannel _channel = MethodChannel('app.channel.deeplink');
 
   @override
@@ -73,13 +73,9 @@ class _MyAppState extends State<MyApp> {
     final uri = Uri.parse(link);
     if (uri.scheme == 'hotelbooking') {
       if (uri.host == 'hotels') {
-        setState(() {
-          _initialTabIndex = 1;
-        });
+        _appRouter.navigate(const HomeRoute(children: [HotelsRoute()]));
       } else if (uri.host == 'favorites') {
-        setState(() {
-          _initialTabIndex = 2;
-        });
+        _appRouter.navigate(const HomeRoute(children: [FavoritesRoute()]));
       }
     }
   }
@@ -97,7 +93,7 @@ class _MyAppState extends State<MyApp> {
       ],
       child: BlocBuilder<LocaleCubit, LocaleState>(
         builder: (context, state) {
-          return MaterialApp(
+          return MaterialApp.router(
             title: 'StayPoint',
             theme: AppTheme.darkTheme,
             locale: Locale(state.localeCode),
@@ -108,21 +104,8 @@ class _MyAppState extends State<MyApp> {
               GlobalCupertinoLocalizations.delegate,
             ],
             supportedLocales: const [Locale('en'), Locale('de'), Locale('pl')],
-            onGenerateRoute: (settings) {
-              if (settings.name == '/hotels') {
-                return MaterialPageRoute(
-                  builder: (_) => const HomePage(initialTabIndex: 1),
-                );
-              } else if (settings.name == '/favorites') {
-                return MaterialPageRoute(
-                  builder: (_) => const HomePage(initialTabIndex: 2),
-                );
-              }
-              return MaterialPageRoute(
-                builder: (_) => HomePage(initialTabIndex: _initialTabIndex),
-              );
-            },
-            home: HomePage(initialTabIndex: _initialTabIndex),
+            routerDelegate: _appRouter.delegate(),
+            routeInformationParser: _appRouter.defaultRouteParser(),
           );
         },
       ),

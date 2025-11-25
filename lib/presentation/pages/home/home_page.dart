@@ -1,87 +1,79 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hotel_booking_app/l10n/app_localizations.dart';
-import 'package:hotel_booking_app/presentation/pages/overview/overview_page.dart';
-import 'package:hotel_booking_app/presentation/pages/hotels/hotels_page.dart';
-import 'package:hotel_booking_app/presentation/pages/favorites/favorites_page.dart';
-import 'package:hotel_booking_app/presentation/pages/account/account_page.dart';
+import 'package:hotel_booking_app/presentation/router/app_router.dart';
 import 'package:hotel_booking_app/theme/colors.dart';
 import 'package:hotel_booking_app/theme/dimens.dart';
 import 'package:hotel_booking_app/core/assets/assets.dart';
 
+@RoutePage()
 class HomePage extends HookWidget {
-  final int? initialTabIndex;
-
-  const HomePage({super.key, this.initialTabIndex});
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final selectedIndex = useState(initialTabIndex ?? 0);
+    return AutoTabsRouter(
+      routes: const [
+        OverviewRoute(),
+        HotelsRoute(),
+        FavoritesRoute(),
+        AccountRoute(),
+      ],
+      builder: (context, child) {
+        final tabsRouter = AutoTabsRouter.of(context);
 
-    useEffect(() {
-      if (initialTabIndex != null && initialTabIndex != selectedIndex.value) {
-        selectedIndex.value = initialTabIndex!;
-      }
-      return null;
-    }, [initialTabIndex]);
-
-    return Scaffold(
-      backgroundColor: AppColors.white,
-      body: IndexedStack(
-        index: selectedIndex.value,
-        children: const [
-          OverviewPage(),
-          HotelsPage(),
-          FavoritesPage(),
-          AccountPage(),
-        ],
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.25),
-              offset: Offset(Dimens.zero, Dimens.xxxs),
-              blurRadius: Dimens.xs,
-              spreadRadius: Dimens.zero,
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          currentIndex: selectedIndex.value,
-          onTap: (index) {
-            selectedIndex.value = index;
-          },
-          type: BottomNavigationBarType.fixed,
+        return Scaffold(
           backgroundColor: AppColors.white,
-          selectedItemColor: AppColors.backgroundBrand,
-          unselectedItemColor: AppColors.contentSecondary,
-          elevation: 0,
-          items: [
-            _AppBottomNavigationBarItem(
-              iconPath: Assets.icons.home,
-              label: AppLocalizations.of(context)!.overview,
-              isSelected: selectedIndex.value == 0,
-            ).toBottomNavigationBarItem(),
-            _AppBottomNavigationBarItem(
-              iconPath: Assets.icons.search,
-              label: AppLocalizations.of(context)!.search,
-              isSelected: selectedIndex.value == 1,
-            ).toBottomNavigationBarItem(),
-            _AppBottomNavigationBarItem(
-              iconPath: Assets.icons.favorites,
-              label: AppLocalizations.of(context)!.favorites,
-              isSelected: selectedIndex.value == 2,
-            ).toBottomNavigationBarItem(),
-            _AppBottomNavigationBarItem(
-              iconPath: Assets.icons.profile,
-              label: AppLocalizations.of(context)!.account,
-              isSelected: selectedIndex.value == 3,
-            ).toBottomNavigationBarItem(),
-          ],
-        ),
-      ),
+          body: child,
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.25),
+                  offset: Offset(Dimens.zero, Dimens.xxxs),
+                  blurRadius: Dimens.xs,
+                  spreadRadius: Dimens.zero,
+                ),
+              ],
+            ),
+            child: BottomNavigationBar(
+              currentIndex: tabsRouter.activeIndex,
+              onTap: (index) {
+                tabsRouter.setActiveIndex(index);
+              },
+              type: BottomNavigationBarType.fixed,
+              backgroundColor: AppColors.white,
+              selectedItemColor: AppColors.backgroundBrand,
+              unselectedItemColor: AppColors.contentSecondary,
+              elevation: 0,
+              items: [
+                _AppBottomNavigationBarItem(
+                  iconPath: Assets.icons.home,
+                  label: AppLocalizations.of(context)!.overview,
+                  isSelected: tabsRouter.activeIndex == 0,
+                ).toBottomNavigationBarItem(),
+                _AppBottomNavigationBarItem(
+                  iconPath: Assets.icons.search,
+                  label: AppLocalizations.of(context)!.search,
+                  isSelected: tabsRouter.activeIndex == 1,
+                ).toBottomNavigationBarItem(),
+                _AppBottomNavigationBarItem(
+                  iconPath: Assets.icons.favorites,
+                  label: AppLocalizations.of(context)!.favorites,
+                  isSelected: tabsRouter.activeIndex == 2,
+                ).toBottomNavigationBarItem(),
+                _AppBottomNavigationBarItem(
+                  iconPath: Assets.icons.profile,
+                  label: AppLocalizations.of(context)!.account,
+                  isSelected: tabsRouter.activeIndex == 3,
+                ).toBottomNavigationBarItem(),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -123,7 +115,10 @@ class _AppBottomNavigationBarItem {
             iconPath,
             width: Dimens.l,
             height: Dimens.l,
-            colorFilter: ColorFilter.mode(AppColors.backgroundBrand, BlendMode.srcIn),
+            colorFilter: ColorFilter.mode(
+              AppColors.backgroundBrand,
+              BlendMode.srcIn,
+            ),
           ),
           SizedBox(height: Dimens.s),
         ],

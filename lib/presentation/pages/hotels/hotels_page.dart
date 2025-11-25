@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -16,6 +17,7 @@ import 'cubit/hotels_state.dart';
 
 import 'package:hooked_bloc/hooked_bloc.dart';
 
+@RoutePage()
 class HotelsPage extends HookWidget {
   const HotelsPage({super.key});
 

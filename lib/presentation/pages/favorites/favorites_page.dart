@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:bloc_presentation/bloc_presentation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,6 +16,7 @@ import 'package:hotel_booking_app/shared/utils/use_once.dart';
 import 'cubit/favorites_cubit.dart';
 import 'cubit/favorites_state.dart';
 
+@RoutePage()
 class FavoritesPage extends HookWidget {
   const FavoritesPage({super.key});
 

@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_app/core/assets/assets.dart';
 import 'package:hotel_booking_app/l10n/app_localizations.dart';
@@ -5,6 +6,7 @@ import 'package:hotel_booking_app/presentation/widgets/empty_page_widget.dart';
 import 'package:hotel_booking_app/theme/colors.dart';
 import 'package:hotel_booking_app/theme/text_theme.dart';
 
+@RoutePage()
 class OverviewPage extends StatelessWidget {
   const OverviewPage({super.key});
 
