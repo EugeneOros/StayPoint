@@ -1,6 +1,9 @@
 # StayPoint - Hotel Booking App
 
 A modern Flutter hotel booking application built with Clean Architecture, BLoC state management, and comprehensive local storage. The app demonstrates best practices in Flutter development including dependency injection, localization, deep linking, and comprehensive testing.
+[screen_recording.webm](https://github.com/user-attachments/assets/3bfc822f-9927-4ef0-87fe-364c62c6fe73)
+
+
 
 ## 📱 Features
 
