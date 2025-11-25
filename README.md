@@ -31,35 +31,35 @@ The app follows **Clean Architecture** principles with clear separation of conce
 
 ```
 ┌─────────────────────────────────────────────────────────┐
-│                  Presentation Layer                      │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │   Pages      │  │   Widgets    │  │   Cubits     │  │
-│  │              │  │              │  │              │  │
-│  │ - HotelsPage │  │ - HotelCard  │  │ - HotelsCubit│  │
-│  │ - Favorites  │  │ - ErrorWidget│  │ - Favorites  │  │
-│  │ - Account    │  │ - Loading    │  │ - LocaleCubit│  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│                  Presentation Layer                     │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │   Pages      │  │   Widgets    │  │   Cubits     │   │
+│  │              │  │              │  │              │   │
+│  │ - HotelsPage │  │ - HotelCard  │  │ - HotelsCubit│   │
+│  │ - Favorites  │  │ - ErrorWidget│  │ - Favorites  │   │
+│  │ - Account    │  │ - Loading    │  │ - LocaleCubit│   │
+│  └──────────────┘  └──────────────┘  └──────────────┘   │
 └─────────────────────────────────────────────────────────┘
                           ↕
 ┌─────────────────────────────────────────────────────────┐
-│                    Domain Layer                          │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │   Entities   │  │   Services   │  │  Exceptions  │  │
-│  │              │  │              │  │              │  │
-│  │ - Hotel      │  │ - HotelService│ │ - AppException│ │
-│  │ - Rating     │  │ - LocaleService││ - HotelException││
-│  │ - BestOffer  │  │ - MainStream │  │              │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│                    Domain Layer                         │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │    Models    │  │   Services   │  │  Exceptions  │   │
+│  │              │  │              │  │              │   │
+│  │ - Hotel      │  │ - HotelSer...│  │ - AppExcep...│   │
+│  │ - Rating     │  │ - LocaleSe...│  │ - HotelExc...│   │
+│  │ - BestOffer  │  │ - MainStream │  │              │   │
+│  └──────────────┘  └──────────────┘  └──────────────┘   │
 └─────────────────────────────────────────────────────────┘
                           ↕
 ┌─────────────────────────────────────────────────────────┐
-│                     Data Layer                           │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │    DTOs      │  │ Data Sources │  │  Services    │  │
-│  │              │  │              │  │              │  │
-│  │ - HotelDto   │  │ - Remote     │  │ - HotelRepo  │  │
-│  │ - RatingDto  │  │ - Local(Hive)│  │ - LocaleRepo │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
+│                     Data Layer                          │
+│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐   │
+│  │    DTOs      │  │ Data Sources │  │  Services    │   │
+│  │              │  │              │  │              │   │
+│  │ - HotelDto   │  │ - Remote     │  │ - HotelRepo  │   │
+│  │ - RatingDto  │  │ - Local(Hive)│  │ - LocaleRepo │   │
+│  └──────────────┘  └──────────────┘  └──────────────┘   │
 └─────────────────────────────────────────────────────────┘
 ```
 
