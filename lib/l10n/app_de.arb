@@ -1,0 +1,99 @@
+{
+  "@@locale": "de",
+  "appTitle": "StayPoint",
+  "overview": "Übersicht",
+  "hotels": "Hotels",
+  "search": "Suche",
+  "favorites": "Favoriten",
+  "account": "Konto",
+  "loading": "Laden...",
+  "errorLoadingHotels": "Hotels konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
+  "errorLoadingFavorites": "Favoriten konnten nicht geladen werden. Bitte versuchen Sie es erneut.",
+  "errorTitle": "Etwas ist schief gelaufen",
+  "noHotels": "Keine Hotels verfügbar",
+  "noFavorites": "Sie haben noch keine Hotels als Favoriten markiert",
+  "noFavoritesTitle": "Noch keine Favoriten",
+  "noFavoritesSubtitle": "Beginnen Sie, Hotels zu erkunden und fügen Sie sie zu Ihren Favoriten hinzu",
+  "welcomeTitle": "Willkommen bei StayPoint",
+  "welcomeSubtitle": "Entdecken Sie fantastische Hotels und planen Sie Ihren perfekten Aufenthalt",
+  "addToFavorites": "Zu Favoriten hinzufügen",
+  "removeFromFavorites": "Aus Favoriten entfernen",
+  "pricePerNight": "pro Nacht",
+  "rating": "Bewertung",
+  "location": "Standort",
+  "toHotel": "Zu den Angeboten",
+  "retry": "Wiederholen",
+  "ratingDisplay": "{rating} / 5.0",
+  "@ratingDisplay": {
+    "description": "Rating display with parameter",
+    "placeholders": {
+      "rating": {
+        "type": "String",
+        "example": "4.1"
+      }
+    }
+  },
+  "ratingTooltip": "Hotelbewertungsinformationen",
+  "@ratingTooltip": {
+    "description": "Tooltip-Text für Bewertungs-Fragezeichen-Symbol"
+  },
+  "ratingDescriptionWithReviews": "{description} ({count} Bew.)",
+  "@ratingDescriptionWithReviews": {
+    "description": "Bewertungsbeschreibung mit Anzahl der Bewertungen",
+    "placeholders": {
+      "description": {
+        "type": "String",
+        "example": "Sehr gut"
+      },
+      "count": {
+        "type": "int",
+        "example": "493"
+      }
+    }
+  },
+  "language": "Sprache",
+  "selectLanguage": "Sprache auswählen",
+  "english": "Englisch",
+  "german": "Deutsch",
+  "polish": "Polnisch",
+  "from": "ab ",
+  "perPerson": "p.P.",
+  "inclFlight": "inkl. Flug",
+  "days": "{count} Tage",
+  "@days": {
+    "description": "Days count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "nights": "{count} Nächte",
+  "@nights": {
+    "description": "Nights count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "adultsAndChildren": "{adults} Erw., {children} Kinder",
+  "@adultsAndChildren": {
+    "description": "Adults and children count label",
+    "placeholders": {
+      "adults": {
+        "type": "int",
+        "example": "2"
+      },
+      "children": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "version": "Version 1.0.0",
+  "errorToggleFavorite": "Favorit konnte nicht aktualisiert werden. Bitte versuchen Sie es erneut."
+}
+

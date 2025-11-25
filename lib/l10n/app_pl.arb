@@ -1,0 +1,98 @@
+{
+  "@@locale": "pl",
+  "appTitle": "StayPoint",
+  "overview": "Przegląd",
+  "hotels": "Hotele",
+  "search": "Szukaj",
+  "favorites": "Ulubione",
+  "account": "Konto",
+  "loading": "Ładowanie...",
+  "errorLoadingHotels": "Nie udało się załadować hoteli. Spróbuj ponownie.",
+  "errorLoadingFavorites": "Nie udało się załadować ulubionych. Spróbuj ponownie.",
+  "errorTitle": "Coś poszło nie tak",
+  "noHotels": "Brak dostępnych hoteli",
+  "noFavorites": "Nie masz jeszcze żadnych ulubionych hoteli",
+  "noFavoritesTitle": "Brak ulubionych",
+  "noFavoritesSubtitle": "Zacznij przeglądać hotele i dodawaj je do ulubionych",
+  "welcomeTitle": "Witamy w StayPoint",
+  "welcomeSubtitle": "Odkryj niesamowite hotele i zaplanuj idealny pobyt",
+  "addToFavorites": "Dodaj do ulubionych",
+  "removeFromFavorites": "Usuń z ulubionych",
+  "pricePerNight": "za noc",
+  "rating": "Ocena",
+  "location": "Lokalizacja",
+  "toHotel": "Do ofert",
+  "retry": "Spróbuj ponownie",
+  "ratingDisplay": "{rating} / 5.0",
+  "@ratingDisplay": {
+    "description": "Rating display with parameter",
+    "placeholders": {
+      "rating": {
+        "type": "String",
+        "example": "4.1"
+      }
+    }
+  },
+  "ratingTooltip": "Informacje o ocenie hotelu",
+  "@ratingTooltip": {
+    "description": "Tekst podpowiedzi dla ikony znaku zapytania przy ocenie"
+  },
+  "ratingDescriptionWithReviews": "{description} ({count} recenzji)",
+  "@ratingDescriptionWithReviews": {
+    "description": "Opis oceny z liczbą recenzji",
+    "placeholders": {
+      "description": {
+        "type": "String",
+        "example": "Bardzo dobrze"
+      },
+      "count": {
+        "type": "int",
+        "example": "493"
+      }
+    }
+  },
+  "language": "Język",
+  "selectLanguage": "Wybierz język",
+  "english": "Angielski",
+  "german": "Niemiecki",
+  "polish": "Polski",
+  "from": "od ",
+  "perPerson": "os.",
+  "inclFlight": "w tym lot",
+  "days": "{count} Dni",
+  "@days": {
+    "description": "Days count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "nights": "{count} Nocy",
+  "@nights": {
+    "description": "Nights count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "adultsAndChildren": "{adults} Dorosłych, {children} Dzieci",
+  "@adultsAndChildren": {
+    "description": "Adults and children count label",
+    "placeholders": {
+      "adults": {
+        "type": "int",
+        "example": "2"
+      },
+      "children": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "version": "Wersja 1.0.0",
+  "errorToggleFavorite": "Nie udało się zaktualizować ulubionego. Spróbuj ponownie."
+}

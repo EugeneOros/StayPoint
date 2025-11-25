@@ -1,0 +1,197 @@
+{
+  "@@locale": "en",
+  "appTitle": "StayPoint",
+  "@appTitle": {
+    "description": "The title of the application"
+  },
+  "overview": "Overview",
+  "@overview": {
+    "description": "Overview tab title"
+  },
+  "hotels": "Hotels",
+  "@hotels": {
+    "description": "Hotels tab title"
+  },
+  "search": "Search",
+  "@search": {
+    "description": "Search tab title"
+  },
+  "favorites": "Favorites",
+  "@favorites": {
+    "description": "Favorites tab title"
+  },
+  "account": "Account",
+  "@account": {
+    "description": "Account tab title"
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "Loading message"
+  },
+  "errorLoadingHotels": "Failed to load hotels. Please try again.",
+  "@errorLoadingHotels": {
+    "description": "Error message when hotels fail to load"
+  },
+  "errorLoadingFavorites": "Failed to load favorites. Please try again.",
+  "@errorLoadingFavorites": {
+    "description": "Error message when favorites fail to load"
+  },
+  "errorTitle": "Something went wrong",
+  "@errorTitle": {
+    "description": "Title for error state"
+  },
+  "noHotels": "No hotels available",
+  "@noHotels": {
+    "description": "Message when no hotels are found"
+  },
+  "noFavorites": "You haven't favorited any hotels yet",
+  "@noFavorites": {
+    "description": "Message when no favorites exist"
+  },
+  "noFavoritesTitle": "No Favorites Yet",
+  "@noFavoritesTitle": {
+    "description": "Title for empty favorites state"
+  },
+  "noFavoritesSubtitle": "Start exploring hotels and add them to your favorites",
+  "@noFavoritesSubtitle": {
+    "description": "Subtitle for empty favorites state"
+  },
+  "welcomeTitle": "Welcome to StayPoint",
+  "@welcomeTitle": {
+    "description": "Title for welcome/overview page"
+  },
+  "welcomeSubtitle": "Discover amazing hotels and plan your perfect stay",
+  "@welcomeSubtitle": {
+    "description": "Subtitle for welcome/overview page"
+  },
+  "addToFavorites": "Add to favorites",
+  "@addToFavorites": {
+    "description": "Add to favorites action"
+  },
+  "removeFromFavorites": "Remove from favorites",
+  "@removeFromFavorites": {
+    "description": "Remove from favorites action"
+  },
+  "pricePerNight": "per night",
+  "@pricePerNight": {
+    "description": "Price per night label"
+  },
+  "rating": "Rating",
+  "@rating": {
+    "description": "Rating label"
+  },
+  "location": "Location",
+  "@location": {
+    "description": "Location label"
+  },
+  "toHotel": "To Offers",
+  "@toHotel": {
+    "description": "Button text to navigate to offers"
+  },
+  "retry": "Retry",
+  "@retry": {
+    "description": "Retry button text"
+  },
+  "ratingDisplay": "{rating} / 5.0",
+  "@ratingDisplay": {
+    "description": "Rating display with parameter",
+    "placeholders": {
+      "rating": {
+        "type": "String",
+        "example": "4.1"
+      }
+    }
+  },
+  "ratingTooltip": "Hotel rating information",
+  "@ratingTooltip": {
+    "description": "Tooltip text for rating question mark icon"
+  },
+  "ratingDescriptionWithReviews": "{description} ({count} reviews)",
+  "@ratingDescriptionWithReviews": {
+    "description": "Rating description with review count",
+    "placeholders": {
+      "description": {
+        "type": "String",
+        "example": "Very good"
+      },
+      "count": {
+        "type": "int",
+        "example": "493"
+      }
+    }
+  },
+  "language": "Language",
+  "@language": {
+    "description": "Language selector label"
+  },
+  "selectLanguage": "Select Language",
+  "@selectLanguage": {
+    "description": "Select language dialog title"
+  },
+  "english": "English",
+  "@english": {
+    "description": "English language name"
+  },
+  "german": "German",
+  "@german": {
+    "description": "German language name"
+  },
+  "polish": "Polish",
+  "@polish": {
+    "description": "Polish language name"
+  },
+  "from": "from ",
+  "@from": {
+    "description": "Price prefix 'from'"
+  },
+  "perPerson": "per person",
+  "@perPerson": {
+    "description": "Per person label"
+  },
+  "inclFlight": "incl. flight",
+  "@inclFlight": {
+    "description": "Flight included label"
+  },
+  "days": "{count} Days",
+  "@days": {
+    "description": "Days count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "8"
+      }
+    }
+  },
+  "nights": "{count} Nights",
+  "@nights": {
+    "description": "Nights count label",
+    "placeholders": {
+      "count": {
+        "type": "int",
+        "example": "7"
+      }
+    }
+  },
+  "adultsAndChildren": "{adults} Adults, {children} Children",
+  "@adultsAndChildren": {
+    "description": "Adults and children count label",
+    "placeholders": {
+      "adults": {
+        "type": "int",
+        "example": "2"
+      },
+      "children": {
+        "type": "int",
+        "example": "2"
+      }
+    }
+  },
+  "version": "Version 1.0.0",
+  "@version": {
+    "description": "App version number"
+  },
+  "errorToggleFavorite": "Failed to update favorite. Please try again.",
+  "@errorToggleFavorite": {
+    "description": "Error message when toggling favorite fails"
+  }
+}

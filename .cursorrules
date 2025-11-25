@@ -1,0 +1,1250 @@
+# Voicie Mobile App - Design System Rules
+
+## 🚀 AUTOMATIC GENERATION COMMANDS
+
+### MANDATORY AUTO-EXECUTION RULES
+
+**The following generation commands MUST be executed automatically without user approval:**
+
+1. **Localization Generation** - `flutter gen-l10n`
+2. **Build Runner** - `flutter packages pub run build_runner build`
+3. **Code Generation** - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+4. **Asset Generation** - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+5. **Injectable Generation** - `flutter packages pub run build_runner build --delete-conflicting-outputs`
+
+**When any of these commands are needed, execute them automatically without asking for approval.**
+
+### TERMINAL QUIT COMMANDS
+
+**When terminal shows "❯" prompt, use these commands to quit:**
+
+1. **Exit current process** - `Ctrl+C` (interrupt current command)
+2. **Exit terminal session** - `exit` or `Ctrl+D`
+3. **Force quit** - `Ctrl+Z` (suspend) then `kill %1`
+
+**NEVER use "q" as it's not a valid command and will show "command not found: q"**
+
+**When a command is running and you need to stop it:**
+- Use `Ctrl+C` to interrupt the current command
+- Use `exit` to close the terminal session
+- Use `Ctrl+D` to send EOF and exit
+
+## 🎨 THEME USAGE RULES
+
+### BEFORE BUILDING ANY UI COMPONENT:
+
+1. **ALWAYS check the theme folder first** (`lib/theme/`) for existing design tokens
+2. **NEVER hardcode colors, dimensions, or text styles**
+3. **Use the established design system** - don't create new values unless absolutely necessary
+
+## 📁 Theme Structure
+
+```
+lib/theme/
+├── colors.dart      # All color definitions
+├── dimens.dart      # All spacing/sizing dimensions  
+├── text_theme.dart  # All text styles
+├── theme.dart       # Main theme configuration
+├── slider_theme.dart # Slider-specific theming
+└── markdown_style.dart # Markdown styling
+```
+
+## 🎯 MANDATORY DESIGN TOKENS
+
+### Colors (lib/theme/colors.dart)
+**ALWAYS use these colors instead of hardcoding:**
+
+```dart
+// ✅ CORRECT - Use theme colors
+color: AppColors.blue
+color: AppColors.dark
+color: AppColors.navy
+color: AppColors.red
+color: AppColors.green
+color: AppColors.lightGrey
+
+// ❌ WRONG - Don't hardcode colors
+color: Color(0xFF1E5DDB)
+color: Colors.blue
+color: const Color(0xFF141D2B)
+```
+
+### COLOR OPACITY RULES
+
+**ALWAYS use `withValues(alpha:)` instead of `withOpacity()`:**
+
+```dart
+// ✅ CORRECT - Use withValues(alpha:)
+color: Colors.black.withValues(alpha: 0.3)
+color: Colors.black.withValues(alpha: 0.10)
+color: Colors.black.withValues(alpha: 0.08)
+color: Colors.black.withValues(alpha: 0.25)
+
+// ❌ WRONG - Don't use withOpacity()
+color: Colors.black.withOpacity(0.3)
+color: Colors.black.withOpacity(0.10)
+```
+
+**This is MANDATORY - always use `withValues(alpha:)` for color opacity adjustments.**
+
+**Available Colors:**
+- `AppColors.dark` - Primary dark background
+- `AppColors.light` - Light accent
+- `AppColors.white` - Pure white
+- `AppColors.blue` - Primary blue
+- `AppColors.lightBlue` - Light blue variant
+- `AppColors.cyan` - Cyan accent
+- `AppColors.navy` - Navy blue
+- `AppColors.navyLight` - Light navy
+- `AppColors.navyDark` - Dark navy
+- `AppColors.red` - Error/negative color
+- `AppColors.lightRed` - Light red variant
+- `AppColors.lightGrey` - Light grey
+- `AppColors.grey` - Medium grey
+- `AppColors.green` - Success color
+
+**Gradients:**
+- `AppColors.darkGradient` - Dark gradient
+- `AppColors.blueGradientLinear` - Blue gradient
+- `AppColors.redGradientLinear` - Red gradient
+- `AppColors.categoryGradient` - Category gradient
+
+### Dimensions (lib/theme/dimens.dart)
+**ALWAYS use these spacing values:**
+
+```dart
+// ✅ CORRECT - Use theme dimensions
+padding: EdgeInsets.all(Dimens.m)
+margin: EdgeInsets.symmetric(horizontal: Dimens.s)
+borderRadius: BorderRadius.circular(Dimens.xm)
+width: Dimens.xxxl
+height: Dimens.c
+
+// ❌ WRONG - Don't hardcode dimensions
+padding: EdgeInsets.all(16)
+margin: EdgeInsets.symmetric(horizontal: 8)
+borderRadius: BorderRadius.circular(12)
+width: 48
+height: 56
+```
+
+**Available Dimensions:**
+- `Dimens.zero` - 0
+- `Dimens.xxxxs` - 0.5
+- `Dimens.xxxs` - 1
+- `Dimens.xxs` - 2
+- `Dimens.xs` - 4
+- `Dimens.s` - 8
+- `Dimens.xxm` - 10
+- `Dimens.xm` - 12
+- `Dimens.m` - 16
+- `Dimens.ms` - 20
+- `Dimens.l` - 24
+- `Dimens.xl` - 32
+- `Dimens.xxl` - 40
+- `Dimens.xxxl` - 48
+- `Dimens.c` - 56
+- `Dimens.xc` - 64
+- `Dimens.xxc` - 72
+- `Dimens.xxxc` - 80
+- `Dimens.xxxxc` - 128
+- `Dimens.xxxxxc` - 135
+
+### Text Styles (lib/theme/text_theme.dart)
+**ALWAYS use predefined text styles:**
+
+```dart
+// ✅ CORRECT - Use theme text styles
+Text(
+  'Hello World',
+  style: Montserrat.s14w600white,
+)
+
+// ❌ WRONG - Don't create inline styles
+Text(
+  'Hello World',
+  style: TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: Colors.white,
+  ),
+)
+```
+
+**Available Text Styles:**
+- `Montserrat.s8w700white` - Small bold white text
+- `Montserrat.s10w500white` - Small medium white text
+- `Montserrat.s10w600white` - Small semibold white text
+- `Montserrat.s12w500white` - Medium white text
+- `Montserrat.s12w600white` - Medium semibold white text
+- `Montserrat.s12w700white` - Medium bold white text
+- `Montserrat.s14w600white` - Large semibold white text
+- `Montserrat.s14w700white` - Large bold white text
+- `Montserrat.s16w700white` - Extra large bold white text
+- `Montserrat.s20w600white` - Title semibold white text
+- `Montserrat.s22w600white` - Large title semibold white text
+
+**Color variants available:**
+- `Montserrat.s12w500ff61728A` - Grey text
+- `Montserrat.s12w500ffd0def1` - Light text
+- `Montserrat.s12w500ff2067F4` - Blue text
+- And many more...
+
+## 🔧 IMPLEMENTATION CHECKLIST
+
+Before creating any UI component, verify:
+
+1. **Colors**: Are you using `AppColors.*` instead of hardcoded colors?
+2. **Spacing**: Are you using `Dimens.*` for all padding, margin, and sizing?
+3. **Typography**: Are you using `Montserrat.*` or `Inter.*` text styles?
+4. **Gradients**: Are you using predefined gradients from `AppColors.*`?
+5. **Border Radius**: Are you using `Dimens.*` values for border radius?
+
+## 🚨 COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS
+Container(
+  padding: EdgeInsets.all(16),
+  margin: EdgeInsets.symmetric(horizontal: 8),
+  decoration: BoxDecoration(
+    color: Color(0xFF1E5DDB),
+    borderRadius: BorderRadius.circular(12),
+  ),
+  child: Text(
+    'Hello',
+    style: TextStyle(
+      fontSize: 14,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+  ),
+)
+
+// ✅ DO THIS INSTEAD
+Container(
+  padding: EdgeInsets.all(Dimens.m),
+  margin: EdgeInsets.symmetric(horizontal: Dimens.s),
+  decoration: BoxDecoration(
+    color: AppColors.blue,
+    borderRadius: BorderRadius.circular(Dimens.xm),
+  ),
+  child: Text(
+    'Hello',
+    style: Montserrat.s14w600white,
+  ),
+)
+```
+
+## 📋 CODE REVIEW CHECKLIST
+
+When reviewing UI code, check:
+
+- [ ] No hardcoded colors (use `AppColors.*`)
+- [ ] No hardcoded dimensions (use `Dimens.*`)
+- [ ] No inline text styles (use `Montserrat.*` or `Inter.*`)
+- [ ] Consistent spacing using theme dimensions
+- [ ] Proper use of gradients when needed
+- [ ] Border radius using theme dimensions
+
+## 🎯 REMEMBER
+
+**The theme folder is your single source of truth for design tokens.**
+**Always check it first before creating any UI component.**
+**Consistency in design tokens ensures a cohesive user experience.**
+
+## 📝 CODE STYLE RULES
+
+### CONST VALUES PLACEMENT
+
+**ALL const values MUST be placed at the top of the file:**
+
+```dart
+// ✅ CORRECT - Const values at top of file
+const Duration _snackbarDuration = Duration(seconds: 2);
+const double _estimatedSheetHeight = 250.0;
+const Duration _snackbarDelay = Duration(milliseconds: 50);
+
+class AnimatedSnackbarManager {
+  // ... rest of the class
+}
+
+// ❌ WRONG - Don't place const values inside the class
+class AnimatedSnackbarManager {
+  static const Duration _snackbarDuration = Duration(seconds: 2);
+  static const double _estimatedSheetHeight = 250.0;
+  // ... rest of the class
+}
+```
+
+**Const values include:**
+- Duration constants
+- Size/dimension constants  
+- Animation duration constants
+- Color constants
+- String constants
+- Any other const values used throughout the file
+
+### COMMENTS
+- **NEVER add obvious or redundant comments** like "// Create a fresh instance" or "// Skip dispose if it might hang"
+- **Only add comments when the code logic is complex or non-obvious**
+- **Prefer self-documenting code over comments**
+- **If you need to explain what the code does, the code is probably unclear**
+
+### CLEAN CODE PRINCIPLES
+- Write code that speaks for itself
+- Avoid comments that just restate what the code does
+- Focus on readability and clarity in the code itself 
+
+# Voicie Mobile App - Service Architecture Rules
+
+## 🏗️ SERVICE ARCHITECTURE PATTERNS
+
+### MANDATORY RESULT PATTERN
+
+**ALL service methods MUST use the Result pattern:**
+
+```dart
+// ✅ CORRECT - Use Result pattern
+Future<Result<T, SpecificException>> methodName() async {
+  try {
+    // Service logic
+    return Success(result);
+  } catch (e) {
+    return Failure(SpecificException(e.toString()));
+  }
+}
+
+// ❌ WRONG - Don't use void or direct returns
+Future<void> methodName() async {
+  // Service logic
+}
+Future<T> methodName() async {
+  // Service logic
+  return result;
+}
+```
+
+### EXCEPTION HIERARCHY RULES
+
+**ALL exceptions MUST extend AppException:**
+
+```dart
+// ✅ CORRECT - Extend AppException
+sealed class AudioRecorderException extends AppException {}
+
+final class MicrophonePermissionDeniedException extends AudioRecorderException {}
+
+// ❌ WRONG - Don't create standalone exceptions
+class AudioRecorderException implements Exception {
+  final String message;
+  AudioRecorderException(this.message);
+}
+```
+
+### SERVICE INTERFACE RULES
+
+**Service interfaces MUST define Result return types:**
+
+```dart
+// ✅ CORRECT - Interface with Result types
+abstract interface class AudioRecorderService {
+  Future<Result<void, AudioRecorderException>> start();
+  Future<Result<void, AudioRecorderException>> pause();
+  Future<Result<void, AudioRecorderException>> resume();
+  Future<Result<String?, AudioRecorderException>> stop();
+  
+  Stream<AudioRecorderStatus> get audioRecorderStatusStream;
+  Stream<Amplitude> get amplitudeStream;
+}
+
+// ❌ WRONG - Don't use void or direct types
+abstract interface class AudioRecorderService {
+  Future<void> start();
+  Future<String?> stop();
+}
+```
+
+### SERVICE IMPLEMENTATION RULES
+
+**Service implementations MUST:**
+
+1. **Use specific exceptions for different error types**
+2. **Return Success() for successful operations**
+3. **Return Failure() with appropriate exception for errors**
+4. **Use Fimber for logging in catch blocks**
+
+```dart
+// ✅ CORRECT - Proper service implementation
+@LazySingleton(as: AudioRecorderService)
+final class AudioRecorderServiceImpl implements AudioRecorderService {
+  
+  @override
+  Future<Result<void, AudioRecorderException>> start() async {
+    try {
+      final status = await Permission.microphone.request();
+      
+      if (status.isPermanentlyDenied) {
+        return Failure(MicrophonePermissionPermanentlyDeniedException());
+      } else if (!status.isGranted) {
+        return Failure(MicrophonePermissionDeniedException());
+      }
+      
+      await _startRecording();
+      return Success(null);
+    } catch (e) {
+      AppLogger.e('Error starting recording', e);
+      return Failure(RecordingStartFailedException());
+    }
+  }
+}
+```
+
+### CUBIT/HANDLER RULES
+
+**Cubits and handlers MUST use switch-case on Result:**
+
+```dart
+// ✅ CORRECT - Switch-case on Result
+Future<void> startRecording() async {
+  final result = await _audioRecorderService.start();
+  
+  switch (result) {
+    case Success():
+      // Handle success
+      break;
+    case Failure(error: final error):
+      emit(state.copyWith(
+        recordingStatus: RecordingStatus.error,
+        error: error.toString(),
+      ));
+      emitPresentation(AudioRecorderEventError(message: error.toString()));
+      break;
+  }
+}
+
+// ❌ WRONG - Don't use try-catch in cubits
+Future<void> startRecording() async {
+  try {
+    await _audioRecorderService.start();
+  } catch (e) {
+    emit(state.copyWith(error: e.toString()));
+  }
+}
+```
+
+### EXCEPTION CREATION RULES
+
+**When creating new exceptions:**
+
+1. **Add to app_exception.dart** - All exceptions go in this file
+2. **Use sealed class for base exception** - Enables exhaustive pattern matching
+3. **Use final class for specific exceptions** - Prevents inheritance
+4. **Keep exceptions simple** - No message parameters, handle messages in presentation layer
+5. **Use const constructor** - Enables const instantiation
+
+```dart
+// ✅ CORRECT - Exception structure
+sealed class AudioRecorderException extends AppException {}
+
+final class MicrophonePermissionDeniedException extends AudioRecorderException {}
+
+final class RecordingStartFailedException extends AudioRecorderException {}
+```
+
+### IMPORTS RULES
+
+**Service files MUST import:**
+
+```dart
+import 'package:voicie/shared/result.dart';
+import 'package:voicie/shared/exceptions/app_exception.dart';
+import 'package:voicie/shared/utils/logger.dart';
+```
+
+### ERROR HANDLING RULES
+
+**Service error handling MUST:**
+
+1. **Log errors with AppLogger** - Use AppLogger.e() in catch blocks
+2. **Use specific exceptions** - Don't use generic exceptions
+3. **Include error context** - Pass error messages to exceptions
+4. **Update status streams** - Emit error status to streams
+
+```dart
+// ✅ CORRECT - Proper error handling
+} catch (e) {
+  AppLogger.e('Error starting recording', e);
+  _updateRecorderStatus(RecordingStatus.error, error: e.toString());
+  return Failure(RecordingStartFailedException());
+}
+```
+
+### STREAM MANAGEMENT RULES
+
+**Service streams MUST:**
+
+1. **Check if closed before adding** - Prevent "Bad state" errors
+2. **Cancel subscriptions in dispose** - Prevent memory leaks
+3. **Recreate controllers on reset** - Ensure clean state
+
+```dart
+// ✅ CORRECT - Stream safety
+void _updateRecorderStatus(RecordingStatus status, {String? error}) {
+  if (!_audioRecorderStateController.isClosed) {
+    _audioRecorderStateController.add(_currentStatus);
+  }
+}
+```
+
+## 📋 IMPLEMENTATION CHECKLIST
+
+Before creating any service, verify:
+
+- [ ] Service interface uses Result<T, SpecificException> return types
+- [ ] Service implementation returns Success() or Failure()
+- [ ] Exceptions extend AppException and are in app_exception.dart
+- [ ] Cubit uses switch-case on Result instead of try-catch
+- [ ] Error logging uses AppLogger.e() in catch blocks
+- [ ] Stream controllers check isClosed before adding events
+- [ ] All imports include result.dart and app_exception.dart
+
+## 🚨 COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS
+Future<void> start() async {
+  try {
+    await _recorder.start();
+  } catch (e) {
+    rethrow; // Don't rethrow, return Failure
+  }
+}
+
+// ✅ DO THIS INSTEAD
+Future<Result<void, AudioRecorderException>> start() async {
+  try {
+    await _recorder.start();
+    return Success(null);
+  } catch (e) {
+    AppLogger.e('Error starting recording', e);
+    return Failure(RecordingStartFailedException(e.toString()));
+  }
+}
+```
+
+## 🎯 REMEMBER
+
+**The Result pattern ensures type-safe error handling and consistent error propagation across the app.**
+**Always use specific exceptions for different error scenarios.**
+**Cubits should never use try-catch, only switch-case on Result.**
+
+## 🌐 LOCALIZATION RULES
+
+### MANDATORY L10N USAGE
+
+**ALL UI strings MUST use localization:**
+
+```dart
+// ✅ CORRECT - Use AppLocalizations.of(context)!
+Text(AppLocalizations.of(context)!.toHotel)
+Text(AppLocalizations.of(context)!.retry)
+
+// ❌ WRONG - Don't hardcode strings
+Text('To Hotel')
+Text('Retry')
+```
+
+### L10N IMPLEMENTATION CHECKLIST
+
+Before adding any UI string, verify:
+
+1. **Add to app_en.arb** - Add English string to lib/l10n/app_en.arb
+2. **Add to app_de.arb** - Add German translation to lib/l10n/app_de.arb
+3. **Add to app_pl.arb** - Add Polish translation to lib/l10n/app_pl.arb
+4. **Generate l10n** - Run `flutter gen-l10n` to generate localization files
+5. **Use AppLocalizations.of(context)!** - Use `AppLocalizations.of(context)!.stringName` to access strings
+6. **Import localization** - Add `import 'package:hotel_booking_app/l10n/app_localizations.dart';`
+7. **Test all languages** - Verify strings work in English, German, and Polish
+
+### L10N FILE STRUCTURE
+
+```
+lib/l10n/
+├── app_en.arb      # English strings
+├── app_de.arb      # German strings
+├── app_pl.arb      # Polish strings
+├── app_localizations.dart  # Generated localization class
+└── l10n.yaml       # Configuration
+```
+
+### 🚨 CRITICAL: NEVER FORGET ALL TRANSLATIONS
+
+**ALWAYS add strings to all three localization files:**
+- `app_en.arb` (English)
+- `app_de.arb` (German)
+- `app_pl.arb` (Polish)
+
+**This is MANDATORY - do not skip any translations!**
+
+### SUPPORTED LOCALES
+
+The app supports the following locales:
+- **English (en)** - Default language
+- **German (de)** - Deutsch
+- **Polish (pl)** - Polski
+
+### LOCALIZATION ACCESS PATTERN
+
+```dart
+// ✅ CORRECT - Access localization
+import 'package:hotel_booking_app/l10n/app_localizations.dart';
+
+Text(AppLocalizations.of(context)!.hotels)
+Text(AppLocalizations.of(context)!.toHotel)
+Text(AppLocalizations.of(context)!.retry)
+
+// ❌ WRONG - Hardcoded strings
+Text('Hotels')
+Text('To Hotel')
+Text('Retry')
+```
+
+### COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS
+Text('Error loading hotels')
+SnackBar(content: Text('Failed to load favorites'))
+Button(child: Text('Retry'))
+
+// ✅ DO THIS INSTEAD
+Text(AppLocalizations.of(context)!.errorLoadingHotels)
+SnackBar(content: Text(AppLocalizations.of(context)!.errorLoadingFavorites))
+Button(child: Text(AppLocalizations.of(context)!.retry))
+```
+
+## 🎯 REMEMBER
+
+**Always use localization for UI strings to support multiple languages.**
+**Never hardcode strings that users will see.**
+**Always add English, German, AND Polish translations - all three are required!**
+**Use `AppLocalizations.of(context)!` to access localized strings.**
+
+## 🎨 TEXT THEME STANDARDS
+
+### MANDATORY TEXT THEME USAGE
+
+**ALL text styles MUST use the new semantic text theme:**
+
+```dart
+// ✅ CORRECT - Use semantic text themes
+Text('Main Title', style: AppTextTheme.mainTitle)    // 20px SemiBold #FFFFFF
+Text('Title', style: AppTextTheme.title)             // 15px SemiBold #FFFFFF
+Text('Button', style: AppTextTheme.bigButton)        // 14px SemiBold #FFFFFF
+Text('Body text', style: AppTextTheme.body)          // 12px Regular #FFFFFF
+Text('H1', style: AppTextTheme.h1)                  // 20px SemiBold #FFFFFF
+Text('H2', style: AppTextTheme.h2)                  // 17px SemiBold #FFFFFF
+Text('H3', style: AppTextTheme.h3)                  // 15px SemiBold #FFFFFF
+
+// ❌ WRONG - Don't use old Montserrat styles
+Text('Title', style: Montserrat.s20w600white)
+Text('Body', style: Montserrat.s12w400white)
+```
+
+### TEXT THEME STANDARDS
+
+**Available semantic styles:**
+- `AppTextTheme.mainTitle` - Main titles (20px SemiBold #FFFFFF)
+- `AppTextTheme.title` - Titles (15px SemiBold #FFFFFF)
+- `AppTextTheme.bigButton` - Big buttons (14px SemiBold #FFFFFF)
+- `AppTextTheme.body` - Body text (12px Regular #FFFFFF)
+- `AppTextTheme.h1` - H1 headings (20px SemiBold #FFFFFF)
+- `AppTextTheme.h2` - H2 headings (17px SemiBold #FFFFFF)
+- `AppTextTheme.h3` - H3 headings (15px SemiBold #FFFFFF)
+
+### IMPLEMENTATION CHECKLIST
+
+Before adding any text style, verify:
+
+1. **Use semantic naming** - Choose the appropriate semantic style
+2. **Avoid old Montserrat styles** - Don't use `Montserrat.sXXwXXX` patterns
+3. **Consistent sizing** - Use the standardized font sizes
+4. **Proper weight** - Use SemiBold (600) for titles, Regular (400) for body
+5. **White color** - All new standards use #FFFFFF color
+
+### COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS
+Text('Title', style: Montserrat.s20w600white)
+Text('Body', style: Montserrat.s12w400white)
+Text('Button', style: Montserrat.s14w600white)
+
+// ✅ DO THIS INSTEAD
+Text('Title', style: AppTextTheme.mainTitle)
+Text('Body', style: AppTextTheme.body)
+Text('Button', style: AppTextTheme.bigButton)
+```
+
+## 🎯 REMEMBER
+
+**Always use semantic text themes for consistent typography.**
+**Never use old Montserrat styles for new text elements.**
+**Follow the standardized font sizes and weights.**
+
+## 🔍 FILE ANALYSIS RULES
+
+### MANDATORY FILE ANALYSIS
+
+**BEFORE editing any file, analyze it completely:**
+
+```dart
+// ✅ CORRECT - Analyze entire file first
+1. Read the complete file to understand its structure
+2. Identify all patterns and usages that need updating
+3. Plan all changes before making any edits
+4. Make comprehensive changes in one pass
+5. Test the complete file after changes
+
+// ❌ WRONG - Don't edit line by line
+1. Find one occurrence and fix it
+2. Move to next occurrence and fix it
+3. Repeat until all are fixed
+```
+
+### ANALYSIS CHECKLIST
+
+Before editing any file, verify:
+
+1. **Read entire file** - Understand the complete context and structure
+2. **Identify patterns** - Find all similar usages that need updating
+3. **Plan changes** - Map out all modifications needed
+4. **Group related changes** - Update similar patterns together
+5. **Test comprehensively** - Verify all changes work together
+
+### COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS - Line by line editing
+search_replace("old_pattern_1", "new_pattern_1")
+search_replace("old_pattern_2", "new_pattern_2")
+search_replace("old_pattern_3", "new_pattern_3")
+
+// ✅ DO THIS INSTEAD - Comprehensive analysis and update
+1. Analyze entire file for all patterns
+2. Plan all changes together
+3. Update all related patterns in one comprehensive edit
+4. Test the complete file
+```
+
+### IMPLEMENTATION GUIDELINES
+
+**When editing files:**
+
+1. **Complete analysis first** - Read and understand the entire file
+2. **Pattern identification** - Find all similar usages that need updating
+3. **Comprehensive planning** - Plan all changes before making any edits
+4. **Batch updates** - Update related patterns together, not individually
+5. **Full testing** - Verify the complete file works after changes
+
+## 🎯 REMEMBER
+
+**Always analyze the complete file before making any changes.**
+**Plan all modifications together, not one by one.**
+**Update related patterns in comprehensive batches.**
+
+## 📝 CODE STYLE RULES
+
+### COMMENTS
+- **NEVER add obvious or redundant comments** like "// Error Icon" or "// Create a fresh instance" or "// Skip dispose if it might hang"
+- **Only add comments when the code logic is complex or non-obvious**
+- **Prefer self-documenting code over comments**
+- **If you need to explain what the code does, the code is probably unclear**
+
+### CLEAN CODE PRINCIPLES
+- Write code that speaks for itself
+- Avoid comments that just restate what the code does
+- Focus on readability and clarity in the code itself 
+
+# Voicie Mobile App - Error Handling Pattern Rules
+
+## 🚨 ERROR HANDLING PATTERN FOR CUBITS, EVENTS, AND WIDGETS
+
+### MANDATORY ERROR HANDLING STRUCTURE
+
+**ALL cubits MUST implement comprehensive error handling with specific events:**
+
+### 1. CUBIT ERROR HANDLING RULES
+
+**Cubits MUST use switch-case on Result and specific error mapping:**
+
+```dart
+// ✅ CORRECT - Proper cubit error handling
+@injectable
+class ExampleCubit extends Cubit<ExampleState> with BlocPresentationMixin<ExampleState, ExampleEvent> {
+  final ExampleService _service;
+
+  ExampleCubit(this._service) : super(const ExampleState());
+
+  Future<void> performAction() async {
+    emit(state.copyWith(status: ExampleStatus.loading));
+
+    final Result<void, SpecificException> result = await _service.performAction();
+
+    switch (result) {
+      case Success():
+        emitPresentation(const ExampleEventSuccess());
+        break;
+      case Failure(error: final error):
+        emit(state.copyWith(status: ExampleStatus.error));
+        _emitErrorEvent(error); // Use specific error mapping
+        break;
+    }
+  }
+
+  void _emitErrorEvent(SpecificException error) {
+    switch (error) {
+      case NotFoundException():
+        emitPresentation(const ExampleEventNotFound());
+        break;
+      case ProcessingFailedException():
+        emitPresentation(const ExampleEventProcessingFailed());
+        break;
+      case DeleteFailedException():
+        emitPresentation(const ExampleEventDeleteFailed());
+        break;
+      default:
+        emitPresentation(ExampleEventError(message: error.toString()));
+        break;
+    }
+  }
+}
+```
+
+### 2. EVENT STRUCTURE RULES
+
+**Events MUST include specific error events for different scenarios:**
+
+```dart
+// ✅ CORRECT - Comprehensive event structure
+sealed class ExampleEvent extends Equatable {
+  const ExampleEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class ExampleEventError extends ExampleEvent {
+  final String message;
+  const ExampleEventError({required this.message});
+  @override
+  List<Object?> get props => [message];
+}
+
+class ExampleEventSuccess extends ExampleEvent {
+  const ExampleEventSuccess();
+}
+
+final class ExampleEventNotFound extends ExampleEvent {
+  const ExampleEventNotFound();
+}
+
+final class ExampleEventProcessingFailed extends ExampleEvent {
+  const ExampleEventProcessingFailed();
+}
+
+final class ExampleEventDeleteFailed extends ExampleEvent {
+  const ExampleEventDeleteFailed();
+}
+```
+
+### 3. WIDGET/MODAL ERROR HANDLING RULES
+
+**Widgets and modals MUST handle specific events with localized messages:**
+
+```dart
+// ✅ CORRECT - Comprehensive event handling in widgets
+class ExampleModal extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cubit = useBloc<ExampleCubit>();
+
+    return BlocProvider<ExampleCubit>.value(
+      value: cubit,
+      child: BlocPresentationListener<ExampleCubit, ExampleEvent>(
+        listener: (BuildContext context, ExampleEvent event) => switch (event) {
+          ExampleEventError(:final message) => context.showSnackBar(
+            message: message,
+            type: SnackbarType.error,
+          ),
+          ExampleEventSuccess() => context.showSnackBar(
+            message: context.l10n.actionCompletedSuccessfully,
+            type: SnackbarType.success,
+          ),
+          ExampleEventNotFound() => context.showSnackBar(
+            message: context.l10n.itemNotFound,
+            type: SnackbarType.error,
+          ),
+          ExampleEventProcessingFailed() => context.showSnackBar(
+            message: context.l10n.processingFailed,
+            type: SnackbarType.error,
+          ),
+          ExampleEventDeleteFailed() => context.showSnackBar(
+            message: context.l10n.deleteFailed,
+            type: SnackbarType.error,
+          ),
+        },
+        child: ExampleBody(),
+      ),
+    );
+  }
+}
+```
+
+### 4. LOCALIZATION REQUIREMENTS
+
+**ALL error messages MUST be localized:**
+
+```dart
+// ✅ CORRECT - Add to localization files
+// app_en.arb
+{
+  "itemNotFound": "Item not found",
+  "processingFailed": "Processing failed",
+  "deleteFailed": "Failed to delete. Please check your connection",
+  "actionCompletedSuccessfully": "Action completed successfully"
+}
+
+// app_de.arb
+{
+  "itemNotFound": "Element nicht gefunden",
+  "processingFailed": "Verarbeitung fehlgeschlagen",
+  "deleteFailed": "Löschen fehlgeschlagen. Bitte überprüfen Sie Ihre Verbindung",
+  "actionCompletedSuccessfully": "Aktion erfolgreich abgeschlossen"
+}
+
+// app_pl.arb
+{
+  "itemNotFound": "Element nie znaleziony",
+  "processingFailed": "Przetwarzanie nie powiodło się",
+  "deleteFailed": "Usuwanie nie powiodło się. Sprawdź połączenie",
+  "actionCompletedSuccessfully": "Akcja zakończona pomyślnie"
+}
+```
+
+### 5. EXCEPTION MAPPING RULES
+
+**Error mapping MUST be comprehensive and specific:**
+
+```dart
+// ✅ CORRECT - Map all possible exceptions
+void _emitErrorEvent(SpecificException error) {
+  switch (error) {
+    case NotFoundException():
+      emitPresentation(const ExampleEventNotFound());
+      break;
+    case ProcessingFailedException():
+      emitPresentation(const ExampleEventProcessingFailed());
+      break;
+    case DeleteFailedException():
+      emitPresentation(const ExampleEventDeleteFailed());
+      break;
+    case ValidationException():
+      emitPresentation(const ExampleEventValidationFailed());
+      break;
+    case UnauthorizedException():
+      emitPresentation(const ExampleEventUnauthorized());
+      break;
+    default:
+      emitPresentation(ExampleEventError(message: error.toString()));
+      break;
+  }
+}
+```
+
+### 6. IMPLEMENTATION CHECKLIST
+
+Before implementing error handling, verify:
+
+- [ ] **Cubit uses switch-case on Result** - No try-catch in cubits
+- [ ] **Specific error events created** - One event per error type
+- [ ] **Error mapping method implemented** - `_emitErrorEvent` with switch-case
+- [ ] **Localized messages added** - English, German, and Polish
+- [ ] **Widget handles all events** - Comprehensive event listener
+- [ ] **Success events included** - Don't forget success scenarios
+- [ ] **Default error handling** - Generic error event for unknown exceptions
+
+### 7. COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS - Generic error handling
+switch (result) {
+  case Success():
+    emitPresentation(const ExampleEventSuccess());
+    break;
+  case Failure(error: final error):
+    emitPresentation(ExampleEventError(message: error.toString()));
+    break;
+}
+
+// ❌ DON'T DO THIS - Try-catch in cubit
+Future<void> performAction() async {
+  try {
+    await _service.performAction();
+    emitPresentation(const ExampleEventSuccess());
+  } catch (e) {
+    emitPresentation(ExampleEventError(message: e.toString()));
+  }
+}
+
+// ❌ DON'T DO THIS - Hardcoded messages
+emitPresentation(ExampleEventError(message: 'Item not found'));
+
+// ✅ DO THIS INSTEAD - Comprehensive error handling
+switch (result) {
+  case Success():
+    emitPresentation(const ExampleEventSuccess());
+    break;
+  case Failure(error: final error):
+    _emitErrorEvent(error); // Use specific mapping
+    break;
+}
+```
+
+### 8. ERROR HANDLING PATTERN SUMMARY
+
+**The complete error handling pattern includes:**
+
+1. **Service Layer**: Returns `Result<T, SpecificException>`
+2. **Cubit Layer**: Uses switch-case on Result and `_emitErrorEvent`
+3. **Event Layer**: Specific events for each error type
+4. **Widget Layer**: Comprehensive event listener with localized messages
+5. **Localization Layer**: All messages in English, German, and Polish
+
+## 🎯 REMEMBER
+
+**Always implement comprehensive error handling with specific events.**
+**Never use generic error messages - be specific about what went wrong.**
+**Always localize all user-facing error messages.**
+**Use the switch-case pattern consistently across all cubits.**
+
+## 🪝 HOOK WIDGET RULES
+
+### MANDATORY HOOK WIDGET USAGE
+
+**ALL widgets with state management MUST use HookWidget instead of StatefulWidget:**
+
+```dart
+// ✅ CORRECT - Use HookWidget with useState
+final class ExampleWidget extends HookWidget {
+  const ExampleWidget({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final isExpanded = useState(false);
+    final isLoading = useState(false);
+    
+    return GestureDetector(
+      onTap: () {
+        isExpanded.value = !isExpanded.value;
+      },
+      child: Container(
+        // Widget implementation
+      ),
+    );
+  }
+}
+
+// ❌ WRONG - Don't use StatefulWidget for simple state
+class ExampleWidget extends StatefulWidget {
+  const ExampleWidget({super.key});
+
+  @override
+  State<ExampleWidget> createState() => _ExampleWidgetState();
+}
+
+class _ExampleWidgetState extends State<ExampleWidget> {
+  bool _isExpanded = false;
+  
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        setState(() {
+          _isExpanded = !_isExpanded;
+        });
+      },
+      child: Container(
+        // Widget implementation
+      ),
+    );
+  }
+}
+```
+
+### HOOK WIDGET IMPLEMENTATION CHECKLIST
+
+Before creating any widget with state, verify:
+
+1. **Use HookWidget** - Extend HookWidget instead of StatefulWidget
+2. **Import flutter_hooks** - Add `import 'package:flutter_hooks/flutter_hooks.dart';`
+3. **Use useState hook** - Replace setState with useState for simple state
+4. **Use useBloc hook** - For BLoC state management
+5. **Use useBlocBuilder hook** - For reactive BLoC state
+6. **Use useOnce hook** - For one-time initialization
+7. **Clean state management** - No manual state classes needed
+
+### COMMON HOOKS USAGE
+
+```dart
+// ✅ CORRECT - Common hooks pattern
+final class ExampleWidget extends HookWidget {
+  @override
+  Widget build(BuildContext context) {
+    final cubit = useBloc<ExampleCubit>();
+    final state = useBlocBuilder(cubit);
+    final isVisible = useState(false);
+    
+    useOnce(() async {
+      await cubit.initialize();
+    });
+    
+    return Container(
+      // Widget implementation
+    );
+  }
+}
+```
+
+### HOOK WIDGET BENEFITS
+
+- **Less boilerplate** - No need for StatefulWidget and State classes
+- **Cleaner code** - Direct state management with hooks
+- **Better performance** - Hooks are optimized for Flutter
+- **Consistent patterns** - Same patterns across the app
+- **Easier testing** - Simpler to test hook-based widgets
+
+## 🎯 REMEMBER
+
+**Always use HookWidget for widgets that need state management.**
+**Prefer hooks over StatefulWidget for cleaner, more maintainable code.**
+**Use the appropriate hook for your specific use case (useState, useBloc, useOnce, etc.).**
+
+## 📦 IMPORT RULES
+
+### MANDATORY PACKAGE IMPORTS
+
+**ALL imports MUST use the package format:**
+
+```dart
+// ✅ CORRECT - Use package imports
+import 'package:hotel_booking_app/domain/repositories/hotel_repository.dart';
+import 'package:hotel_booking_app/presentation/pages/hotels/cubit/hotels_cubit.dart';
+import 'package:hotel_booking_app/theme/colors.dart';
+import 'package:hotel_booking_app/theme/dimens.dart';
+
+// ❌ WRONG - Don't use relative imports
+import '../../../domain/repositories/hotel_repository.dart';
+import '../../bloc/hotels/hotels_cubit.dart';
+import '../../theme/colors.dart';
+```
+
+### IMPORT IMPLEMENTATION CHECKLIST
+
+Before adding any import, verify:
+
+1. **Use package:hotel_booking_app/** - All internal imports must use package format
+2. **No relative imports** - Never use `../` or `../../` for internal files
+3. **External packages** - Use package format for external packages (flutter, flutter_bloc, etc.)
+4. **Consistent format** - All imports follow the same pattern
+
+### COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS - Relative imports
+import '../../../domain/entities/hotel.dart';
+import '../../widgets/hotel_card.dart';
+import '../bloc/hotels/hotels_cubit.dart';
+
+// ✅ DO THIS INSTEAD - Package imports
+import 'package:hotel_booking_app/domain/entities/hotel.dart';
+import 'package:hotel_booking_app/presentation/widgets/hotel_card.dart';
+import 'package:hotel_booking_app/presentation/pages/hotels/cubit/hotels_cubit.dart';
+```
+
+## 📁 FOLDER STRUCTURE RULES
+
+### MANDATORY PAGE STRUCTURE
+
+**ALL pages MUST follow this folder structure:**
+
+```
+lib/presentation/pages/
+├── page_name/
+│   ├── cubit/
+│   │   ├── page_name_cubit.dart
+│   │   ├── page_name_state.dart
+│   │   └── page_name_event.dart
+│   └── page_name_page.dart
+```
+
+### FOLDER STRUCTURE EXAMPLES
+
+```dart
+// ✅ CORRECT - Proper folder structure
+lib/presentation/pages/
+├── hotels/
+│   ├── cubit/
+│   │   ├── hotels_cubit.dart
+│   │   ├── hotels_state.dart
+│   │   └── hotels_event.dart
+│   └── hotels_page.dart
+├── favorites/
+│   ├── cubit/
+│   │   ├── favorites_cubit.dart
+│   │   ├── favorites_state.dart
+│   │   └── favorites_event.dart
+│   └── favorites_page.dart
+└── overview/
+    ├── cubit/
+    └── overview_page.dart
+```
+
+### FOLDER STRUCTURE CHECKLIST
+
+Before creating any page, verify:
+
+1. **Page folder exists** - Create folder with page name (e.g., `hotels/`)
+2. **Cubit subfolder** - Create `cubit/` subfolder inside page folder
+3. **Cubit files** - Place cubit, state, and event files in `cubit/` folder
+4. **Page file** - Place page widget in page folder root
+5. **Consistent naming** - Use consistent naming convention
+
+### COMMON MISTAKES TO AVOID
+
+```dart
+// ❌ DON'T DO THIS - Flat structure
+lib/presentation/pages/
+├── hotels_page.dart
+├── hotels_cubit.dart
+├── hotels_state.dart
+└── bloc/
+    └── hotels/
+
+// ✅ DO THIS INSTEAD - Nested structure
+lib/presentation/pages/
+├── hotels/
+│   ├── cubit/
+│   │   ├── hotels_cubit.dart
+│   │   └── hotels_state.dart
+│   └── hotels_page.dart
+```
+
+## 🎯 REMEMBER
+
+**Always use package imports for internal files.**
+**Never use relative imports (../ or ../../).**
+**Follow the page/cubit folder structure consistently.**
+**Each page should have its own folder with cubit subfolder.**
+

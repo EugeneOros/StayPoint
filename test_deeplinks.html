@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StayPoint - Deep Link Test</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #1E5DDB;
+            margin-top: 0;
+        }
+        .link-button {
+            display: block;
+            width: 100%;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: #1E5DDB;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            transition: background 0.3s;
+        }
+        .link-button:hover {
+            background: #1a4fb8;
+        }
+        .link-button.favorites {
+            background: #FF6B6B;
+        }
+        .link-button.favorites:hover {
+            background: #e55555;
+        }
+        .info {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            border-left: 4px solid #1E5DDB;
+        }
+        .url-display {
+            background: #f5f5f5;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🏨 StayPoint</h1>
+        <h2>Deep Link Test Page</h2>
+        
+        <p>Click the buttons below to test deep links. Make sure the app is installed on your device.</p>
+        
+        <a href="hotelbooking://hotels" class="link-button" id="hotelsLink">
+            🏨 Open Hotels Tab
+        </a>
+        
+        <a href="hotelbooking://favorites" class="link-button favorites" id="favoritesLink">
+            ❤️ Open Favorites Tab
+        </a>
+        
+        <div class="info">
+            <strong>Deep Link URLs:</strong>
+            <div class="url-display">hotelbooking://hotels</div>
+            <div class="url-display">hotelbooking://favorites</div>
+            
+            <p style="margin-top: 15px; margin-bottom: 0;">
+                <strong>Instructions:</strong><br>
+                • On Android: Click the links above<br>
+                • On iOS: Open this page in Safari and tap the links<br>
+                • If the app doesn't open, make sure it's installed and the deep links are configured correctly
+            </p>
+        </div>
+    </div>
+    
+    <script>
+        // Log clicks for debugging
+        document.getElementById('hotelsLink').addEventListener('click', function(e) {
+            console.log('Clicked: hotelbooking://hotels');
+        });
+        
+        document.getElementById('favoritesLink').addEventListener('click', function(e) {
+            console.log('Clicked: hotelbooking://favorites');
+        });
+    </script>
+</body>
+</html>
+
