@@ -1,5 +1,7 @@
+import 'dart:async';
+import 'package:app_links/app_links.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -38,46 +40,63 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final _appRouter = AppRouter();
-  static const MethodChannel _channel = MethodChannel('app.channel.deeplink');
+  late final AppLinks _appLinks;
+  StreamSubscription<Uri>? _linkSubscription;
 
   @override
   void initState() {
     super.initState();
-    _getInitialLink();
-    _listenToLinks();
+    _appLinks = AppLinks();
+    _initDeepLinks();
   }
 
-  Future<void> _getInitialLink() async {
+  Future<void> _initDeepLinks() async {
     try {
-      final String? link = await _channel.invokeMethod('getInitialLink');
-      if (link != null) {
-        _parseDeepLink(link);
+      final initialLink = await _appLinks.getInitialLink();
+      if (initialLink != null) {
+        _handleDeepLink(initialLink);
       }
+
+      _linkSubscription = _appLinks.uriLinkStream.listen(
+        _handleDeepLink,
+        onError: (error) {
+          // Handle deep link errors silently
+        },
+      );
     } catch (e) {
-      // No deep link on initial launch
+      // app_links plugin not available - will work after rebuild
+      // This is expected on first run after adding the package
     }
   }
 
-  void _listenToLinks() {
-    _channel.setMethodCallHandler((call) async {
-      if (call.method == 'onNewLink') {
-        final String? link = call.arguments as String?;
-        if (link != null) {
-          _parseDeepLink(link);
-        }
-      }
-    });
-  }
-
-  void _parseDeepLink(String link) {
-    final uri = Uri.parse(link);
+  void _handleDeepLink(Uri uri) {
     if (uri.scheme == 'hotelbooking') {
-      if (uri.host == 'hotels') {
-        _appRouter.navigate(const HomeRoute(children: [HotelsRoute()]));
-      } else if (uri.host == 'favorites') {
-        _appRouter.navigate(const HomeRoute(children: [FavoritesRoute()]));
+      final route = _mapDeepLinkToRoute(uri);
+      if (route != null) {
+        _appRouter.navigate(route);
       }
     }
+  }
+
+  PageRouteInfo? _mapDeepLinkToRoute(Uri uri) {
+    switch (uri.host) {
+      case 'hotels':
+        return const HomeRoute(children: [HotelsRoute()]);
+      case 'favorites':
+        return const HomeRoute(children: [FavoritesRoute()]);
+      case 'overview':
+        return const HomeRoute(children: [OverviewRoute()]);
+      case 'account':
+        return const HomeRoute(children: [AccountRoute()]);
+      default:
+        return null;
+    }
+  }
+
+  @override
+  void dispose() {
+    _linkSubscription?.cancel();
+    super.dispose();
   }
 
   @override

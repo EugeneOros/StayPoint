@@ -38,6 +38,9 @@ dependencies:
   # Networking
   http: ^1.2.2
   dio: ^5.7.0
+  
+  # Deep Linking
+  app_links: ^6.3.3
 
   # Hooks
   flutter_hooks: ^0.20.5

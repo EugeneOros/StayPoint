@@ -1,6 +1,6 @@
 # StayPoint - Hotel Booking App
 
-A modern Flutter hotel booking application built with Clean Architecture, BLoC state management, and comprehensive local storage. The app demonstrates best practices in Flutter development including dependency injection, localization, deep linking, and comprehensive testing.
+A modern Flutter hotel booking application built with Clean Architecture, BLoC state management, Auto Route navigation, and comprehensive local storage. The app demonstrates best practices in Flutter development including dependency injection, localization, idiomatic deep linking with app_links, and comprehensive testing.
 
 [screen_recording.webm](https://github.com/user-attachments/assets/3bfc822f-9927-4ef0-87fe-364c62c6fe73)
 
@@ -159,11 +159,19 @@ Future<Result<T, Exception>> method() async {
 - `useState`, `useEffect` for local state
 - No need for StatefulWidget in most cases
 
-### 8. Comprehensive Localization
+### 9. Comprehensive Localization
 **Why**: Internationalization from the start
 - All UI strings in `.arb` files
 - Three languages: English, German (default), Polish
 - Easy to add more languages
+
+### 10. Idiomatic Deep Linking
+**Why**: Scalable, maintainable deep link handling
+- Uses `app_links` package instead of manual MethodChannel
+- Proper lifecycle management with stream subscriptions
+- Type-safe route mapping from deep links to route objects
+- Easy to extend with parameters and complex paths
+- Integration with Auto Route for seamless navigation
 
 ## 📁 Project Structure
 
@@ -196,7 +204,10 @@ lib/
 │   │   ├── favorites/      # Favorites page with cubit
 │   │   ├── account/        # Account page with locale cubit
 │   │   ├── overview/       # Overview/welcome page
-│   │   └── home/           # Main navigation page
+│   │   └── home/           # Main navigation page with AutoTabsRouter
+│   ├── router/            # Auto Route configuration
+│   │   ├── app_router.dart # Route definitions
+│   │   └── app_router.gr.dart # Generated routes
 │   └── widgets/
 │       ├── hotel_card/     # Hotel card components
 │       ├── empty_page_widget.dart
@@ -251,7 +262,7 @@ test/
    flutter pub get
    ```
 
-3. **Generate code** (required for JSON serialization and dependency injection):
+3. **Generate code** (required for JSON serialization, dependency injection, and routing):
    ```bash
    flutter packages pub run build_runner build --delete-conflicting-outputs
    ```
@@ -259,7 +270,7 @@ test/
    This generates:
    - JSON serialization code for DTOs
    - Injectable dependency injection configuration
-   - Localization files
+   - Auto Route configuration (`app_router.gr.dart`)
 
 4. **Generate localization files**:
    ```bash
@@ -380,12 +391,46 @@ The app includes comprehensive test coverage:
 
 ## 🔗 Deep Linking
 
-The app supports deep linking to navigate directly to specific tabs:
+The app supports deep linking to navigate directly to specific tabs using **Auto Route** and **app_links** package for idiomatic, scalable deep link handling.
+
+### Architecture
+
+Deep links are handled using:
+- **`app_links`** package: Cross-platform deep link handling (replaces manual MethodChannel)
+- **Auto Route**: Type-safe route objects for navigation
+- **Router 2.0**: Integration with MaterialApp.router for URL-based routing
 
 ### Supported Links
 
 - `hotelbooking://hotels` - Opens Hotels tab
 - `hotelbooking://favorites` - Opens Favorites tab
+- `hotelbooking://overview` - Opens Overview tab
+- `hotelbooking://account` - Opens Account tab
+
+### Implementation Details
+
+Deep links are mapped to route objects in `main.dart`:
+
+```dart
+void _handleDeepLink(Uri uri) {
+  if (uri.scheme == 'hotelbooking') {
+    final route = _mapDeepLinkToRoute(uri);
+    if (route != null) {
+      _appRouter.navigate(route);
+    }
+  }
+}
+
+PageRouteInfo? _mapDeepLinkToRoute(Uri uri) {
+  switch (uri.host) {
+    case 'hotels':
+      return const HomeRoute(children: [HotelsRoute()]);
+    case 'favorites':
+      return const HomeRoute(children: [FavoritesRoute()]);
+    // ... more routes
+  }
+}
+```
 
 ### Testing Deep Links
 
@@ -405,6 +450,12 @@ xcrun simctl openurl booted "hotelbooking://hotels"
 <a href="hotelbooking://favorites">Open Favorites</a>
 ```
 
+**Using Test Script**:
+```bash
+./test_deeplinks.sh android hotels
+./test_deeplinks.sh ios favorites
+```
+
 See `DEEPLINK_GUIDE.md` for detailed instructions.
 
 ## 📦 Dependencies
@@ -414,6 +465,8 @@ See `DEEPLINK_GUIDE.md` for detailed instructions.
 - **`flutter_bloc`** (^8.1.6): State management
 - **`hooked_bloc`** (^1.5.0): BLoC hooks for HookWidget
 - **`bloc_presentation`** (^1.0.1): One-time events from cubits
+- **`auto_route`** (^9.1.0): Declarative routing with deep linking support
+- **`app_links`** (^6.3.3): Cross-platform deep link handling
 - **`injectable`** (^1.7.0): Dependency injection
 - **`hive`** / **`hive_flutter`** (^2.2.3): Local storage
 - **`http`** (^1.2.2): HTTP client
@@ -424,6 +477,7 @@ See `DEEPLINK_GUIDE.md` for detailed instructions.
 ### Dev Dependencies
 
 - **`build_runner`**: Code generation
+- **`auto_route_generator`** (^9.0.0): Auto Route code generation
 - **`json_serializable`**: JSON code generation
 - **`bloc_test`**: BLoC testing utilities
 - **`mocktail`**: Mocking for tests
@@ -462,6 +516,26 @@ The app supports three languages:
    ```
 
 ## 🎯 State Management Flow
+
+### Navigation Flow (Auto Route)
+
+```
+Deep Link / User Navigation
+    ↓
+app_links package (handles deep links)
+    ↓
+main.dart _handleDeepLink()
+    ↓
+Map URI to PageRouteInfo (HomeRoute, HotelsRoute, etc.)
+    ↓
+AppRouter.navigate(route)
+    ↓
+AutoTabsRouter (in HomePage)
+    ↓
+Updates active tab index
+    ↓
+UI updates with selected tab
+```
 
 ### Hotels Page Flow
 
@@ -513,12 +587,13 @@ UI updates reactively
 The app uses code generation for:
 - JSON serialization (DTOs)
 - Dependency injection (Injectable)
+- Auto Route configuration (route classes)
 - Localization (Flutter l10n)
 
 ### Regenerating Code
 
 ```bash
-# Generate all code
+# Generate all code (JSON, DI, routes)
 flutter packages pub run build_runner build --delete-conflicting-outputs
 
 # Watch mode (auto-regenerate on changes)
@@ -527,6 +602,15 @@ flutter packages pub run build_runner watch --delete-conflicting-outputs
 # Generate localization
 flutter gen-l10n
 ```
+
+### Route Generation
+
+After modifying routes in `app_router.dart`, regenerate:
+```bash
+flutter packages pub run build_runner build --delete-conflicting-outputs
+```
+
+This updates `app_router.gr.dart` with new route classes.
 
 ## 🐛 Troubleshooting
 
@@ -565,6 +649,7 @@ The app follows Flutter/Dart best practices:
 - **Semantic naming** for clarity
 - **Design system** usage (no hardcoded values)
 - **Result pattern** for error handling
+- **Type-safe navigation** with Auto Route
 - **Comprehensive comments** only when necessary
 
 ## 🚧 Future Enhancements
